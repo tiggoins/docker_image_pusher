@@ -1,4 +1,5 @@
 #支持私库
-kindest/node:v1.25.16
+docker.io/kolla/centos-binary-rabbitmq:ussuri
+docker.io/kolla/centos-source-rabbitmq:ussuri
 #支持指定架构
 # --platform=linux/arm64 xiaoyaliu/alist
