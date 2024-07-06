@@ -1,5 +1,4 @@
 #支持私库
-docker.io/kolla/centos-binary-rabbitmq:ussuri
-docker.io/kolla/centos-source-rabbitmq:ussuri
+nginx:1.21.4
 #支持指定架构
 # --platform=linux/arm64 xiaoyaliu/alist
