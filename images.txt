@@ -1,5 +1,4 @@
 #支持私库
-registry.k8s.io/ingress-nginx/controller:v1.10.1 
-registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.4.1 
+alpine:3.16.3
 #支持指定架构
 --platform=linux/arm64
