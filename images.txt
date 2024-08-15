@@ -1,4 +1,4 @@
 #支持私库
-jimmidyson/configmap-reload:v0.5.0
+kindest/node:v1.20.15
 #支持指定架构
 # --platform=linux/arm64
