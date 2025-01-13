@@ -1,4 +1,4 @@
 #支持私库
-sonatype/nexus:2.15.2-03
+sonatype/nexus3:3.76.0-java17-alpine
 #支持指定架构
 # --platform=linux/arm64
