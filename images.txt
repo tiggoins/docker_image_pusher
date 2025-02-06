@@ -1,4 +1,4 @@
 #支持私库
-quay.io/ansible/awx-operator:2.19.1
+gcr.io/kubebuilder/kube-rbac-proxy:v0.15.0
 #支持指定架构
 # --platform=linux/arm64
