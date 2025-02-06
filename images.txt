@@ -1,4 +1,5 @@
 #支持私库
-quay.io/sclorg/postgresql-15-c9s:latest
+docker.io/redis:7
+quay.io/ansible/awx:24.6.1
 #支持指定架构
 # --platform=linux/arm64
