@@ -1,4 +1,4 @@
 #支持私库
-quay.io/ansible/awx:24.6.1
+kindest/node:v1.32.2
 #支持指定架构
 # --platform=linux/arm64
