@@ -1,4 +1,4 @@
 #支持私库
-kindest/node:v1.32.2
+apache/apisix:3.11.0-debian
 #支持指定架构
 # --platform=linux/arm64
