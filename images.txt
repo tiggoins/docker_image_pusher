@@ -1,4 +1,4 @@
 #支持私库
-docker.io/kindest/node:v1.19.11
+docker.io/kindest/node:v1.21.14
 #支持指定架构
 # --platform=linux/arm64
