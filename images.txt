@@ -1,5 +1,5 @@
 #支持私库
-quay.io/metallb/controller:v0.15.3
-quay.io/metallb/speaker:v0.15.3
+registry.k8s.io/ingress-nginx/controller:v1.14.2
+registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.6.6
 #支持指定架构
 # --platform=linux/arm64
