@@ -1,4 +1,5 @@
 #支持私库
-ghcr.io/kube-vip/kube-vip:v0.4.0
+quay.io/metallb/controller:v0.15.3
+quay.io/metallb/speaker:v0.15.3
 #支持指定架构
 # --platform=linux/arm64
