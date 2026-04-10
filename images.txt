@@ -1,4 +1,4 @@
 #支持私库
-kindest/node:v1.35.1
+docker.io/library/tomcat:9.0-jdk11-openjdk-slim
 #支持指定架构
 # --platform=linux/arm64
