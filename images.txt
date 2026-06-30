@@ -1,4 +1,4 @@
 #支持私库
-golang:1.22-alpine
+alpine:3.20
 #支持指定架构
 #--platform=linux/arm64
