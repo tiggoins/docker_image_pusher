@@ -28,9 +28,6 @@ jobs:
 
       - name: Sync Images
         run: |
-          MAX_PARALLEL=4
-          running=0
-
           declare -A duplicate_images
           declare -A temp_map
 
@@ -55,15 +52,15 @@ jobs:
             fi
           done < images.txt
 
-          # 同步函数
-          sync_one() {
-            local line="$1"
-            [[ -z "$line" ]] && return 0
-            echo "$line" | grep -q '^\s*#' && return 0
+          # 第二遍：用 skopeo 直接拷贝
+          while IFS= read -r line || [ -n "$line" ]; do
+            [[ -z "$line" ]] && continue
+            echo "$line" | grep -q '^\s*#' && continue
 
             image=$(echo "$line" | awk '{print $NF}')
             image="${image%%@*}"
 
+            # 提取架构信息
             platform=$(echo "$line" | awk -F'--platform[ =]' '{if (NF>1) print $2}' | awk '{print $1}')
             platform_prefix=""
             [ -n "$platform" ] && platform_prefix="${platform//\//_}"
@@ -78,35 +75,18 @@ jobs:
               name_space_prefix="${name_space}_"
             fi
 
+            # 目标镜像
             new_image="$ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/${platform_prefix}${name_space_prefix}${image_name_tag}"
+
+            echo "skopeo copy docker://${image} docker://${new_image}"
 
             if [ -n "$platform" ]; then
               os=$(echo "$platform" | cut -d'/' -f1)
               arch=$(echo "$platform" | cut -d'/' -f2)
-              echo "[$os/$arch] $image → $new_image"
               skopeo copy --override-os "$os" --override-arch "$arch" \
                 "docker://${image}" "docker://${new_image}"
             else
-              echo "[amd64] $image → $new_image"
-              skopeo copy --override-arch amd64 \
-                "docker://${image}" "docker://${new_image}"
+              skopeo copy --all "docker://${image}" "docker://${new_image}"
             fi
-            echo "✓ $image_name_tag"
-          }
 
-          # 第二遍：并行同步
-          while IFS= read -r line || [ -n "$line" ]; do
-            [[ -z "$line" ]] && continue
-            echo "$line" | grep -q '^\s*#' && continue
-
-            while [ "$running" -ge "$MAX_PARALLEL" ]; do
-              wait -n
-              ((running--))
-            done
-
-            sync_one "$line" &
-            ((running++))
           done < images.txt
-
-          wait
-          echo "All images synced!"
