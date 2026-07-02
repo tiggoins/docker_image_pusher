@@ -1,4 +1,5 @@
 #支持私库
 registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0
+registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.18.0
 #支持指定架构
-#--platform=linux/arm64
+#<imagename> --platform=linux/arm64
