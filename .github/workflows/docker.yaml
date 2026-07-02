@@ -30,7 +30,6 @@ jobs:
         run: |
           set -e
 
-          # 最大并行数
           MAX_PARALLEL=4
           running=0
 
@@ -61,21 +60,21 @@ jobs:
           # ===== 同步函数 =====
           sync_image() {
             local line="$1"
-
-            echo "$line" | grep -q '^\s*#' && return 0
             [[ -z "$line" ]] && return 0
+            echo "$line" | grep -q '^\s*#' && return 0
 
             image=$(echo "$line" | awk '{print $NF}')
             image="${image%%@*}"
 
             platform=$(echo "$line" | awk -F'--platform[ =]' '{if (NF>1) print $2}' | awk '{print $1}')
-            platform_prefix=""
-            [ -n "$platform" ] && platform_prefix="${platform//\//_}"
 
             image_name_tag=$(echo "$image" | awk -F'/' '{print $NF}')
             image_name_tag="${image_name_tag%%@*}"
             name_space=$(echo "$image" | awk -F'/' '{if (NF==3) print $2; else if (NF==2) print $1; else print ""}')
             image_name=$(echo "$image_name_tag" | awk -F':' '{print $1}')
+
+            platform_prefix=""
+            [ -n "$platform" ] && platform_prefix="${platform//\//_}"
 
             name_space_prefix=""
             if [[ -n "${duplicate_images[$image_name]}" ]] && [[ -n "$name_space" ]]; then
@@ -87,15 +86,15 @@ jobs:
             if [ -n "$platform" ]; then
               os=$(echo "$platform" | cut -d'/' -f1)
               arch=$(echo "$platform" | cut -d'/' -f2)
-              echo "  [单架构] $image → $new_image (--override-os=$os --override-arch=$arch)"
+              echo "  [$os/$arch] $image → $new_image"
               skopeo copy --override-os "$os" --override-arch "$arch" \
                 "docker://${image}" "docker://${new_image}"
             else
-              echo "  [多架构] $image → $new_image"
-              skopeo copy --all "docker://${image}" "docker://${new_image}"
+              echo "  [amd64] $image → $new_image"
+              skopeo copy --override-arch amd64 \
+                "docker://${image}" "docker://${new_image}"
             fi
-
-            echo "  ✓ $image_name_tag done"
+            echo "  ✓ $image_name_tag"
           }
 
           # ===== 第二遍：并行同步 =====
@@ -103,7 +102,6 @@ jobs:
             [[ -z "$line" ]] && continue
             echo "$line" | grep -q '^\s*#' && continue
 
-            # 控制并发数
             while [ "$running" -ge "$MAX_PARALLEL" ]; do
               wait -n
               ((running--))
@@ -114,6 +112,5 @@ jobs:
             ((running++))
           done < images.txt
 
-          # 等待所有后台任务结束
           wait
           echo "All images synced!"
