@@ -1,7 +1,5 @@
 #支持私库
-quay.io/prometheus/prometheus:v3.12.0
-quay.io/prometheus-operator/prometheus-config-reloader:v0.92.0
-registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.1
-registry.k8s.io/metrics-server/metrics-server:v0.8.1
+quay.io/kubespray/kubespray:v2.30.0
+quay.io/kubespray/kubespray:v2.31.0
 #支持指定架构
 #<imagename> --platform=linux/arm64
