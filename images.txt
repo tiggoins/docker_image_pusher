@@ -1,5 +1,6 @@
 #支持私库
-quay.io/kubespray/kubespray:v2.30.0
-quay.io/kubespray/kubespray:v2.31.0
+quay.io/cilium/cilium-envoy:v1.34.10-1762597008-ff7ae7d623be00078865cff1b0672cc5d9bfc6d5
+quay.io/cilium/cilium:v1.18.6
+quay.io/cilium/operator-generic:v1.18.6
 #支持指定架构
 #<imagename> --platform=linux/arm64
