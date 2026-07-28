@@ -1,4 +1,4 @@
 #支持私库
-prom/alertmanager:v0.33.0
+feiyu563/prometheus-alert:v5.0.0
 #支持指定架构
 #<imagename> --platform=linux/arm64
