@@ -1,4 +1,4 @@
 #支持私库
-docker.io/kindest/node:v1.36.1
+docker.io/kindest/node:v1.28.15
 #支持指定架构
 #<imagename> --platform=linux/arm64
